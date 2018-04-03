@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -9,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
 import { MessageService } from './message.service';
+import { HEROES } from './mock-heroes';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,22 +16,19 @@ const httpOptions = {
 @Injectable()
 export class HeroService {
 
-  public heroesUrl = 'api/';  // URL to web api
+  public heroesUrl = 'api/heroes';  // URL to web api
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
   /** GET heroes from the server */
-  /*getHeroes (): Observable<Hero[]> {
+  getHeroes (): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
         tap(heroes => this.log(`fetched heroes`)),
         catchError(this.handleError('getHeroes', []))
       );
-  }*/
-  getMyHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl);
   }
 
   /** GET hero by id. Return `undefined` when id not found */
